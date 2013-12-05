@@ -1,0 +1,181 @@
+Deskripsi Service
+===================
+
+SOAP
+------------
+1. createUser(string username, string email, string nama_lengkap, string alamat, string provinsi, string kota, string kodepos, string telepon)  
+  menambahkan user baru
+  
+  return string berformat json:
+  - status : `ok` jika sukses, `error` jika gagal  
+  - desc : error message, hanya ada jika status = `error`
+  
+2. createBarang(string nama_barang, int harga, int stok, string kategori, string deskripsi)  
+  menambahkan barang baru
+  
+  return string berformat json:
+  - status : `ok` jika sukses, `error` jika gagal
+  - desc : error message, hanya ada jika status = `error`
+  - id : id barang yang baru ditambahkan, hanya ada jika status = `ok`
+  
+REST
+------------
+
+**** Barang ****
+
+Model data barang dalam bentuk json:  
+  - id : integer id barang  
+  - nama : string nama barang  
+  - harga : integer harga  
+  - stok : integer stok barang  
+  - kategori : string kategori barang  
+  - deskripsi : string deskripsi barang  
+  - jumlah_beli : integer jumlah pembelian
+
+1. GET barang/<id_barang>  
+  mendapatkan barang dengan id = <id_barang>. error jika id tidak ada
+  
+  return string berformat json:
+  - status : `ok` jika sukses, `error` jika gagal
+  - desc : error message, hanya ada jika status = `error`
+  - barang : json representasi barang, hanya ada jika status = `ok`
+  
+2. GET kategori/<nama_kategori>
+  mendapatkan barang-barang dengan kategori = <nama_kategori>. error jika kategori tidak ada
+  
+  GET parameter (url encoded):
+  (opsional) page=<no_page> untuk nomor page. default=0
+  (opsional) sort=name atau sort=harga. default=name
+  (opsional) order=asc atau order=desc. default=asc
+  
+  return string berformat json:
+  - status : `ok` jika sukses, `error` jika gagal
+  - desc : error message, hanya ada jika status = `error`
+  - hasil : array of json representasi barang, hanya ada jika status = `ok`
+
+3. GET search/<entry_search>
+  mencari barang dengan query = <entry_search>
+  
+  GET parameter (url encoded):
+  (opsional) page=<no_page> untuk nomor page. 
+  (opsional) sort=name atau sort=harga. 
+  (opsional) order=asc atau order=desc.
+  
+  return string berformat json:
+  - status : `ok` jika sukses, `error` jika gagal
+  - desc : error message, hanya ada jika status = `error`
+  - hasil : array of json representasi barang, hanya ada jika status = `ok`
+  
+4. GET populer  
+  mencari 10 barang dengan jumlah pembelian terbanyak
+  
+  return string berformat json:
+  - status : `ok` jika sukses, `error` jika gagal
+  - desc : error message, hanya ada jika status = `error`
+  - hasil : array of json representasi barang, hanya ada jika status = `ok`
+
+5. PUT barang/<id_barang>  
+  mengupdate data barang
+
+  PUT data berformat JSON, yaitu json representasi barang. Seluruh isi data, kecuali id, akan berubah
+  
+  return string berformat json:
+  - status : `ok` jika sukses, `error` jika gagal
+  - desc : error message, hanya ada jika status = `error`
+
+6. DELETE barang/<id_barang>  
+  menghapus data barang
+
+  DELETE data berformat JSON:
+  - ids : array of integer, id barang yang akan dihapus.
+  
+  return string berformat json:
+  - status : `ok` jika sukses, `error` jika gagal
+  - desc : error message, hanya ada jika status = `error`
+
+7. POST cart/<id_barang>
+  mengecek apakah barang cukup jika dimasukkan ke cart.
+  
+  POST data berformat JSON:
+  - jumlah: integer, jumlah barang yang ingin dimasukkan
+  
+  return string berformat json:
+  - status : `ok` jika sukses, `error` jika gagal
+  - desc : error message, hanya ada jika status = `error`  
+
+8. POST buy  
+  membeli barang
+  
+  POST data berformat JSON:
+  - cart : json object dengan format {id_barang1 : jumlah1, id_barang2 : jumlah2, dst...}
+  - username : string username pembeli
+  
+  return string berformat json:
+  - status : `ok` jika sukses, `error` jika gagal
+  - desc : error message, hanya ada jika status = `error`
+  
+**** User ****
+
+Model data credit card dalam bentuk json:  
+  - card_name : string nama kartu kredit  
+  - card_number : string nomor kartu kredit  
+  - card_date : string tanggal kadaluarsa kartu kredit
+
+Model data user dalam bentuk json:  
+  - username : string username  
+  - password : string password user  
+  - email : string email user  
+  - nama_lengkap : string nama lengkap user  
+  - alamat : string alamat user  
+  - provinsi : string provinsi user  
+  - kota : string kota user  
+  - kodepos : string kode pos user  
+  - telepon : string telepon user  
+  - jumlah_transaksi : integer jumlah transaksi user  
+  - has_card : boolean apakah user sudah mengisi info credit card atau tidak
+  - role : "admin" atau "user"
+
+1. GET user/<username>
+  mendapatkan user dengan username = <username>. error jika user tidak ada
+  
+  return string berformat json:
+  - status : `ok` jika sukses, `error` jika gagal
+  - desc : error message, hanya ada jika status = `error`
+  - user : json representasi user, kecuali password, hanya ada jika status = `ok`
+  
+2. GET user/<username>/card
+  mendapatkan apakah user sudah mendaftarkan card atau belum. error jika user tidak ada
+  
+  return string berformat json:
+  - status : `ok` jika sukses, `error` jika gagal
+  - desc : error message, hanya ada jika status = `error`
+  - has_card : true/false, hanya ada jika status = `ok`
+  
+3. POST login
+  mengecek login. error jika username atau password salah.
+  
+  POST data berformat JSON:
+  - username : string username
+  - password : string password
+	
+  return string berformat json:
+  - status : `ok` jika sukses, `error` jika gagal
+  - desc : error message, hanya ada jika status = `error`
+
+4. PUT user/<username>  
+  mengupdate data user dengan username = <username>.
+  
+  PUT data berformat JSON, yaitu json representasi user. error jika username tidak ada.
+  
+  return string berformat json:
+  - status : `ok` jika sukses, `error` jika gagal
+  - desc : error message, hanya ada jika status = `error`
+  
+5. PUT user/<username>/card  
+  mengupdate informasi kartu kredit user
+  
+  PUT data berformat JSON, yaitu json representasi credit card. error jika username tidak ada.
+  
+  return string berformat json:
+  - status : `ok` jika sukses, `error` jika gagal
+  - desc : error message, hanya ada jika status = `error`

@@ -1,0 +1,31 @@
+http://marin.jb.free.fr/wsdl/
+
+Log Horizon
+
+Ruko Online
+
+WBD
+
+com.loghorizon.rukoonline
+
+Online Shop Web Service
+
+http://localhost/wbd3/service/soap
+
+string result;
+string username;
+string email;
+string nama_lengkap;
+string alamat;
+string provinsi;
+string kota;
+string kodepos;
+string telepon;
+string nama_barang;
+int harga;
+int stok;
+string kategori;
+string deskripsi;
+
+result createUser(username, email, nama_lengkap, alamat, provinsi, kota, kodepos, telepon);
+result createBarang(nama_barang, harga, stok, kategori, deskripsi);

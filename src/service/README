@@ -168,7 +168,18 @@ return string berformat json:
 -	desc : error message, hanya ada jika status = `error`
 -	token: string token login, akan disimpan di cookie / local storage. Hanya ada jika status ok
 
-4.	PUT user/<username>  
+4.	POST logout
+Logout.
+
+POST data berformat JSON:
+-	username: string username
+-	token: string token login
+
+return string berformat json:
+-	status : `ok` jika sukses, `error` jika gagal
+-	desc : error message, hanya ada jika status = `error`
+
+5.	PUT user/<username>  
 mengupdate data user dengan username = <username>. error jika username tidak ada atau token invalid.
 
 PUT data berformat JSON:
@@ -179,7 +190,7 @@ return string berformat json:
 -	status : `ok` jika sukses, `error` jika gagal
 -	desc : error message, hanya ada jika status = `error`
 
-5.	PUT user/<username>/card  
+6.	PUT user/<username>/card  
 mengupdate informasi kartu kredit user. error jika username tidak ada atau token invalid.
 
 PUT data berformat JSON:

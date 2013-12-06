@@ -1,4 +1,4 @@
-var REST_URL = "http://localhost/wbd3/service/rest/";
+var REST_URL = "http://localhost/IF3110-Tubes-III/src/service/rest/";
 
 function sendRestAjax(method, resource, data, callback){
 	target = REST_URL + resource;

@@ -17,6 +17,9 @@ class ShopRestHandler extends RestHandler{
 			case 'login':
 				// post login
 			break;
+			case 'logout':
+				// post login
+			break;
 		}
 		
 		echo json_encode($response);

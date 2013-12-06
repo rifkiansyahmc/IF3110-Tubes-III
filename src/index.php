@@ -5,5 +5,5 @@
 	$client = new SoapClient($WSDL_URL);
 	$return = $client->createBarang("nama_barang", 1000, 0, "abcde", "");
 	
-	print_r($return);
+	print_r(simplexml_load_string($return));
 ?>
